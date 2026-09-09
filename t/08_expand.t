@@ -1,11 +1,7 @@
 # t/08_expand.t  # test of the expand option
 use strict;
 use warnings;
-use Test::More
-# tests => 2;
-qw(no_plan);
-use Data::Dumper;
-$Data::Dumper::Indent = 0;
+use Test::More tests => 17;
 
 BEGIN { use_ok( 'Set::Integer::Gapfillers' ); }
 
@@ -22,6 +18,24 @@ $gf = Set::Integer::Gapfillers->new(
 );
 isa_ok ($gf, 'Set::Integer::Gapfillers');
 
+$allsegref = $gf->all_segments( expand => 0 );
+@expected = (
+        [  1, 17 ], 
+        [ 18, 24 ], 
+        [ 25, 42 ], 
+        [ 43, 43 ],
+        [ 44, 50 ],
+        [ 51, 62 ],
+);
+is_deeply($allsegref, \@expected, 
+    "All segments as expected with expand 0");
+
+eval {
+    $allsegref = $gf->all_segments(expand => 1, q{alpha} );
+};
+like($@, qr/Need even number of arguments/,
+    "all_segments():  Got expected 'die' message for odd number of arguments");
+
 $allsegref = $gf->all_segments(expand => 1);
 @expected = (
         [  1 .. 17 ], 
@@ -34,6 +48,12 @@ $allsegref = $gf->all_segments(expand => 1);
 is_deeply($allsegref, \@expected, 
     "All segments as expected");
 
+eval {
+    $neededref = $gf->segments_needed(expand => 1, q{alpha} );
+};
+like($@, qr/Need even number of arguments/,
+    "segments_needed():  Got expected 'die' message for odd number of arguments");
+
 $neededref = $gf->segments_needed(expand => 1);
 @expected = (
         [ 12 .. 17 ], 
@@ -45,6 +65,12 @@ $neededref = $gf->segments_needed(expand => 1);
 );
 is_deeply($neededref, \@expected, 
     "Segments needed accurately reported");
+
+eval {
+    $gapfillersref = $gf->gapfillers(expand=> 1, q{alpha} );
+};
+like($@, qr/Need even number of arguments/,
+    "gapfillers():  Got expected 'die' message for odd number of arguments");
 
 $gapfillersref = $gf->gapfillers(expand=> 1);
 @expected = (
@@ -145,3 +171,4 @@ $gapfillersref = $gf->gapfillers(expand=> 1);
 );
 is_deeply($gapfillersref, \@expected, 
     "Gapfillers accurately reported");
+

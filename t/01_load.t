@@ -1,9 +1,7 @@
 # t/01_load.t - check module loading and create testing directory
 use strict;
 use warnings;
-use Test::More
-# tests => 2;
-qw(no_plan);
+use Test::More tests => 13;
 
 BEGIN { use_ok( 'Set::Integer::Gapfillers' ); }
 

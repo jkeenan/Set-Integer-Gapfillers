@@ -2,11 +2,7 @@
 # segment-gap pair
 use strict;
 use warnings;
-use Test::More
-# tests => 2;
-qw(no_plan);
-use Data::Dumper;
-$Data::Dumper::Indent = 0;
+use Test::More tests => 10;
 
 BEGIN { use_ok( 'Set::Integer::Gapfillers' ); }
 

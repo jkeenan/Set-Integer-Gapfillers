@@ -1,14 +1,14 @@
 Set::Integer::Gapfillers - Gapfillers elements of two or more lists
 
-This document refers to version 0.07 of Set::Integer::Gapfillers.  This version was
-released April 11, 2006.
+This document refers to version 0.08 of Set::Integer::Gapfillers.  This version was
+released May 17, 2009.
 
 To install this module on your system, place the tarball archive file in a 
 temporary directory and call the following:
 
-% gunzip Set-Integer-Gapfillers-0.07.tar.gz
-% tar xf Set-Integer-Gapfillers-0.07.tar
-% cd Set-Integer-Gapfillers-0.07
+% gunzip Set-Integer-Gapfillers-0.08.tar.gz
+% tar xf Set-Integer-Gapfillers-0.08.tar
+% cd Set-Integer-Gapfillers-0.08
 % perl Makefile.PL
 % make
 % make test

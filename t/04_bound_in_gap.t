@@ -1,11 +1,7 @@
 # t/04_bound_in_gap.t - what happens when bounds are in interior gaps
 use strict;
 use warnings;
-use Test::More
-# tests => 2;
-qw(no_plan);
-use Data::Dumper;
-$Data::Dumper::Indent = 0;
+use Test::More tests => 19;
 
 BEGIN { use_ok( 'Set::Integer::Gapfillers' ); }
 
@@ -24,13 +20,7 @@ $gf = Set::Integer::Gapfillers->new(
 );
 isa_ok ($gf, 'Set::Integer::Gapfillers');
 
-#print STDERR Dumper $gf;
-#print STDERR "\n";
-
 $allsegref = $gf->all_segments();
-
-#print STDERR Dumper $allsegref;
-#print STDERR "\n";
 
 @expected = (
     [ 22, 24 ],

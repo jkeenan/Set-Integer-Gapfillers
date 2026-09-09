@@ -1,5 +1,5 @@
 package Set::Integer::Gapfillers;
-$VERSION = '0.07';
+$VERSION = '0.08';
 use strict;
 use Carp;
 
@@ -11,15 +11,13 @@ sub new {
 
 sub all_segments {
     my $self = shift;
-    my %params;
-    %params = @_ if (scalar(@_) and not scalar(@_) % 2);
+    my %params = _check_extra_args(@_);
     _expand_upon_request($self->{segments}, \%params);
 }
 
 sub gapfillers {
     my $self = shift;
-    my %params;
-    %params = @_ if (scalar(@_) and not scalar(@_) % 2);
+    my %params = _check_extra_args(@_);
     my @segments = @{$self->{segments}};
     my @gaps;
     for (my $n = 0; $n <= $#segments; $n++) {
@@ -30,10 +28,8 @@ sub gapfillers {
 
 sub segments_needed {
     my $self = shift;
-    my %params;
-    %params = @_ if (scalar(@_) and not scalar(@_) % 2);
-    my %args = %{$self};
-    my @segments_needed = @{$args{segments}};
+    my %params = _check_extra_args(@_);
+    my @segments_needed = @{ $self->{segments} };
     # If the lower bound to the requested range fell in a provided segment,
     # then the first segment returned may have "unneeded" elements on its
     # lower side.
@@ -42,13 +38,13 @@ sub segments_needed {
     # upper side.
     # We need to snip these unneeded elements off.
     if ($self->{statuses}->[0]) {
-        if ($segments_needed[0]->[0] < $args{lower}) {
-            $segments_needed[0]->[0] = $args{lower};
+        if ($segments_needed[0]->[0] < $self->{lower}) {
+            $segments_needed[0]->[0] = $self->{lower};
         }
     }
     if ($self->{statuses}->[-1]) {
-        if ($segments_needed[-1]->[1] > $args{upper}) {
-            $segments_needed[-1]->[1] = $args{upper};
+        if ($segments_needed[-1]->[1] > $self->{upper}) {
+            $segments_needed[-1]->[1] = $self->{upper};
         }
     }
     _expand_upon_request([ @segments_needed ], \%params);
@@ -236,6 +232,19 @@ sub _expand_upon_request {
     } else {
         return $compressed_ref;
     }
+}
+
+sub _check_extra_args {
+    my @args = @_;
+    my %params;
+    if ( scalar(@args) ) {
+        unless ( scalar(@args) % 2 ) {
+            %params = @args;
+        } else {
+            croak "Need even number of arguments: $!";
+        }
+    }
+    return %params;
 }
 
 1;

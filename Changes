@@ -16,3 +16,6 @@ Changes for Set::Integer::Gapfillers
     - mostly improvements in documentation
 0.07 Tue Apr 11 19:29:06 EDT 2006
     - module renamed to Set-Integer-Gapfillers; first CPAN upload.
+0.08 Sun May 17 15:51:35 EDT 2009
+    - improve test coverage and do subsequent refactoring; thanks to Isaac
+      Miller for impetus to do so

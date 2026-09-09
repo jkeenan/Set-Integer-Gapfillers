@@ -1,10 +1,7 @@
 # t/05_closed_bound_in_gap.t - what happens when bounds are in interior gaps
 use strict;
 use warnings;
-use Test::More
-# tests => 2;
-qw(no_plan);
-use Data::Dumper;
+use Test::More tests => 19;
 
 BEGIN { use_ok( 'Set::Integer::Gapfillers' ); }
 

@@ -1,11 +1,7 @@
 # t/02_regular.t - test all methods against regular arguments
 use strict;
 use warnings;
-use Test::More
-# tests => 2;
-qw(no_plan);
-use Data::Dumper;
-$Data::Dumper::Indent = 0;
+use Test::More tests => 23;
 
 BEGIN { use_ok( 'Set::Integer::Gapfillers' ); }
 
