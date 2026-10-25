@@ -4,7 +4,8 @@
 ,v$
 ^.svn/
 ^.gitignore
-^.git/
+\B\.git\b
+\B\.github\b
 
 # ExtUtils::MakeMaker generated files and dirs.
 ^MANIFEST\.(?!SKIP)
